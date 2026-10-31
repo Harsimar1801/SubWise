@@ -1,0 +1,17 @@
+"use client";
+import { useState, type ReactNode } from "react";
+import { Search } from "lucide-react";
+import { Badge, Card, Input, PageHeader, Table, type Column } from "@/components/ui/primitives";
+import { Select } from "@/components/ui/forms";
+import { useManagement } from "./context";
+import type { DocumentLine } from "@/lib/frontend/contracts/management";
+import { money } from "@/lib/frontend/formatters";
+export function StatusBadge({ status }: { status: string }) { const tone = ["ACTIVE", "PAID", "COMPLETED", "ACCEPTED"].includes(status) ? "success" : ["PAUSED", "PARTIALLY_PAID", "SENT", "TRIALING"].includes(status) ? "warning" : ["CANCELED", "REJECTED", "UNCOLLECTIBLE", "EXPIRED", "PAST_DUE"].includes(status) ? "danger" : "neutral"; return <Badge tone={tone}>{status.replaceAll("_", " ")}</Badge>; }
+export function DetailGrid({ entries }: { entries: [string, ReactNode][] }) { return <dl className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] gap-x-4 gap-y-4 text-xs">{entries.map(([label, value]) => <div key={label} className="contents"><dt className="text-muted">{label}</dt><dd className="break-words text-right font-medium">{value}</dd></div>)}</dl>; }
+export function RecordList<T>({ title, description, rows, columns, rowKey, searchable, status, actions }: { title: string; description: string; rows: T[]; columns: Column<T>[]; rowKey: (row: T) => string; searchable: (row: T) => string; status?: (row: T) => string; actions?: ReactNode }) {
+ const [search, setSearch] = useState(""), [filter, setFilter] = useState(""); const statuses = status ? [...new Set(rows.map(status))] : [];
+ const filtered = rows.filter(row => searchable(row).toLowerCase().includes(search.toLowerCase()) && (!filter || !status || status(row) === filter));
+ return <><PageHeader title={title} description={description} actions={actions}/><div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-white px-4 py-3 text-[11px] text-muted"><span>Mock workspace · local changes reset on reload</span><Badge>{rows.length} records</Badge></div><Card><div className="mb-5 flex flex-wrap items-center gap-3"><label className="relative block w-full max-w-xs"><span className="sr-only">Search {title.toLowerCase()}</span><Search size={15} className="absolute left-3 top-3 text-muted"/><Input value={search} onChange={e => setSearch(e.target.value)} placeholder={`Search ${title.toLowerCase()}…`} className="pl-9"/></label>{status && <label className="block w-44"><span className="sr-only">Filter by status</span><Select value={filter} onChange={e => setFilter(e.target.value)}><option value="">All statuses</option>{statuses.map(s => <option key={s} value={s}>{s.replaceAll("_", " ")}</option>)}</Select></label>}<span className="ml-auto text-xs text-muted">{filtered.length} shown</span></div><Table rows={filtered} columns={columns} rowKey={rowKey}/></Card></>;
+}
+export function LineItems({ items, currency }: { items: DocumentLine[]; currency: string }) { return <Table rows={items.map((line, i) => ({ ...line, key: String(i) }))} rowKey={line => line.key} columns={[{ key: "description", label: "Plan", render: line => line.description }, { key: "quantity", label: "Qty", render: line => line.quantity }, { key: "price", label: "Unit price", render: line => money(line.unitAmountMinor, currency) }]}/>; }
+export function useCustomerName() { const { data } = useManagement(); return (id: string) => { const customer = data.customers.find(c => c.id === id); return customer?.companyName || customer?.name || id; }; }

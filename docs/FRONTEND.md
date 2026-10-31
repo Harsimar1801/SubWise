@@ -1,4 +1,4 @@
-# Frontend Phase 1
+# Frontend development
 
 This branch is a root-level Next.js 16.4.3 / React 19.2 / TypeScript 5.9 application. It uses npm, Tailwind 4, bundled Inter fonts and Lucide SVG icons. No backend services, API routes, database configuration or Prisma hooks are included.
 
@@ -59,4 +59,4 @@ Financial DTOs use integer minor units, explicit ISO currency and UTC timestamps
 
 Final integration must reconcile package.json/package-lock.json, tsconfig.json, next.config.ts, eslint.config.mjs, .gitignore, README and styling config. Preserve backend dependencies and Prisma generation hooks at that point; this frontend branch intentionally has none. Do not overwrite the backend manifest with the frontend manifest. Keep backend authentication and financial tests alongside tests/frontend.test.ts.
 
-The Stitch export remains unchanged. Disabled sidebar destinations indicate future phases. Staff and Customer have layouts only; no additional business pages are implemented.
+The Stitch export remains unchanged. Phase 2 adds the core management pages and functional role-aware navigation; see [Phase 2 verification and API mapping](PHASE_2.md). Intelligence, recovery, reports and settings destinations remain disabled for later phases. The Admin analytics dashboard remains a separate fixed mock snapshot; local management changes do not recompute it.
