@@ -1,0 +1,2 @@
+import { Card, PageHeader, Badge } from "@/components/ui/primitives";
+export default function Page(){return <><PageHeader title="Staff workspace" description="Your SubWise workspace foundation."/><Card><Badge>Phase 1 · Demo</Badge><h2 className="mt-4 text-lg font-semibold">Welcome to your workspace</h2><p className="mt-2 max-w-lg text-sm leading-6 text-muted">Your navigation and profile are ready. Business pages will be added in a later phase.</p></Card></>;}
