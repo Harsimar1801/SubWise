@@ -1,21 +1,61 @@
 # SubWise
-SubWise is an intelligent subscription management platform that simplifies recurring billing, automates invoicing, tracks payments, and provides smart revenue insights with subscription health scoring, revenue simulation, and automated payment recovery.
 
-## Frontend development (Phase 1)
+SubWise is a full-stack subscription management platform that brings customer operations, recurring billing, payment tracking, and explainable financial insights into one workspace.
 
-The root application uses Next.js 16.4.3, React 19.2, TypeScript and Tailwind CSS. Node.js 22.12+ is required.
+## Features
 
-```sh
-npm ci
-npm run dev
+- **Subscription and plan management** — products, variants, recurring plans, and subscription lifecycle controls.
+- **Customer management** — customer records and access to each customer's own subscriptions and invoices.
+- **Quotations** — prepare proposals, apply taxes and discounts, and convert accepted quotations into subscriptions.
+- **Recurring billing and invoicing** — transaction-safe billing runs, itemized invoices, payment terms, and PDF downloads.
+- **Payment tracking** — record manual payments, support partial settlements, and track outstanding balances.
+- **What-If Revenue Simulator** — compare pricing, discount, and subscription-count scenarios without changing live records.
+- **Subscription Health Scoring** — explainable scores based on payment history, overdue balances, expiry, and cancellation signals.
+- **Smart Payment Recovery** — overdue tracking, reminder previews, manual SMTP reminders, pause/resume controls, and staff escalation.
+- **Admin, Staff, and Customer portals** — role-based access backed by server-side authorization.
+
+## Tech stack
+
+Next.js · React · TypeScript · Tailwind CSS · Prisma · Neon PostgreSQL · Better Auth
+
+## Run locally
+
+Requires **Node.js 22.12+**, npm, and a PostgreSQL database.
+
+1. Install dependencies:
+
+   ```powershell
+   npm ci
+   ```
+
+2. For a new checkout, copy `.env.example` to `.env` only if an environment file does not already exist. Configure `DATABASE_URL`, `DATABASE_URL_UNPOOLED`, `BETTER_AUTH_SECRET`, and `BETTER_AUTH_URL` for your development environment. Keep credentials out of version control.
+
+3. Apply the existing migrations to your development database and start the application:
+
+   ```powershell
+   npm run db:deploy
+   npm run dev
+   ```
+
+Open [localhost:3000](http://localhost:3000). Register a Customer account or sign in with an existing account. Initial administrator creation uses `npm run auth:bootstrap`; see the [authentication setup](docs/AUTHENTICATION.md) for the required bootstrap variables. There are no default credentials.
+
+SMTP is optional for core account access and required for password-reset email delivery. Recovery supports local previews without SMTP. Payments are recorded manually; no live payment gateway is integrated.
+
+## Documentation and checks
+
+- [Database and local setup](docs/LOCAL_SETUP.md)
+- [Authentication and administrator setup](docs/AUTHENTICATION.md)
+- [API contract](docs/FRONTEND_API_CONTRACT.md)
+- [Live frontend/backend integration](docs/LIVE_INTEGRATION.md)
+- [Billing and payments](docs/BILLING.md)
+- [Revenue simulation and health scoring](docs/INSIGHTS.md)
+- [Financial analytics and payment recovery](docs/FINANCE.md)
+
+```powershell
+npm run typecheck
+npm run lint
+npm run test:frontend
+npm run build
 ```
 
-Open http://localhost:3000. All authentication and financial information is explicitly mocked; no backend calls or environment variables are required. Use `admin@subwise.demo`, `staff@subwise.demo`, or `customer@subwise.demo` with password `SubWise!Demo`.
-
-See [frontend setup, verification and integration notes](docs/FRONTEND.md). Run `npm run typecheck`, `npm run lint`, `npm test` and `npm run build` before handoff.
-
-Phase 2 adds Products, Plans, Customers, Quotations, Subscriptions, Invoices and Payments. Admin and Staff navigation is functional; customers have read-only views of their own documents. All changes are local mock state and reset on reload. See [Phase 2 verification and API mapping](docs/PHASE_2.md).
-
-Phase 3 adds deterministic Revenue Simulation, Subscription Health and Smart Payment Recovery for Admin/Staff. These use typed mock adapters, a clearly labeled fixed sample portfolio, and local-only recovery actions—no emails or payments are sent. See [Phase 3 behavior and verification](docs/PHASE_3.md).
-
-Phase 4 prepares inactive, browser-safe API clients and improves loading/error/accessibility states. Mocks remain active. See the [integration checklist and confirmed contract gaps](docs/INTEGRATION_CHECKLIST.md) before enabling any real integration.
+Database integration tests have separate prerequisites; authentication and concurrent billing tests require an isolated `TEST_DATABASE_URL`. See the linked documentation before running them.
