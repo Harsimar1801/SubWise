@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build --webpack",
     "start": "next start",
     "typecheck": "prisma generate && next typegen && tsc --noEmit",
     "lint": "eslint . --max-warnings=0",
@@ -19,13 +19,15 @@
     "db:seed": "prisma db seed",
     "postinstall": "prisma generate",
     "db:verify": "tsx scripts/verify-database.ts",
-    "test": "tsx --test tests/auth.test.ts",
+    "test": "tsx --test tests/auth.test.ts tests/frontend.test.ts tests/intelligence.test.ts tests/api-clients.test.ts",
     "auth:bootstrap": "tsx scripts/bootstrap-admin.ts",
     "test:smoke": "tsx tests/http-smoke.ts",
     "test:catalog": "tsx --test tests/catalog.test.ts tests/catalog.integration.test.ts",
     "test:management": "tsx --test tests/management.test.ts tests/management.integration.test.ts",
     "test:billing": "tsx --test tests/billing.test.ts",
-    "test:billing:concurrent": "tsx --test tests/billing.concurrent.test.ts"
+    "test:billing:concurrent": "tsx --test tests/billing.concurrent.test.ts",
+    "test:auth": "tsx --test tests/auth.test.ts",
+    "test:frontend": "tsx --test tests/frontend.test.ts tests/intelligence.test.ts tests/api-clients.test.ts"
   },
   "dependencies": {
     "@neon/config": "^1.10.0",
@@ -38,7 +40,9 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "server-only": "^0.0.1",
-    "zod": "^4.6.7"
+    "zod": "^4.6.7",
+    "lucide-react": "^0.468.0",
+    "@fontsource/inter": "^5.2.0"
   },
   "devDependencies": {
     "@next/env": "^16.4.3",
@@ -50,6 +54,8 @@
     "eslint-config-next": "16.4.3",
     "prisma": "6.19.3",
     "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "tailwindcss": "^4.1.0"
   }
 }
