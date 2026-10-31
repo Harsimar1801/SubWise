@@ -2,7 +2,9 @@
   "name": "subwise",
   "version": "0.1.0",
   "private": true,
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
@@ -15,18 +17,28 @@
     "db:deploy": "prisma migrate deploy",
     "db:status": "prisma migrate status",
     "db:seed": "prisma db seed",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:verify": "tsx scripts/verify-database.ts",
+    "test": "tsx --test tests/auth.test.ts",
+    "auth:bootstrap": "tsx scripts/bootstrap-admin.ts",
+    "test:smoke": "tsx tests/http-smoke.ts"
   },
-  "prisma": { "seed": "tsx prisma/seed.ts" },
   "dependencies": {
+    "@neon/config": "^1.10.0",
+    "@neon/env": "^1.6.8",
     "@prisma/client": "6.19.3",
+    "better-auth": "^1.7.14",
     "next": "16.4.3",
+    "nodemailer": "^10.3.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@next/env": "^16.4.3",
     "@types/node": "^22.0.0",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "eslint": "^9.0.0",
