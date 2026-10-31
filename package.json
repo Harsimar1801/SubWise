@@ -21,7 +21,8 @@
     "db:verify": "tsx scripts/verify-database.ts",
     "test": "tsx --test tests/auth.test.ts",
     "auth:bootstrap": "tsx scripts/bootstrap-admin.ts",
-    "test:smoke": "tsx tests/http-smoke.ts"
+    "test:smoke": "tsx tests/http-smoke.ts",
+    "test:catalog": "tsx --test tests/catalog.test.ts tests/catalog.integration.test.ts"
   },
   "dependencies": {
     "@neon/config": "^1.10.0",
