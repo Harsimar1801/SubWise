@@ -15,3 +15,7 @@ Open http://localhost:3000. All authentication and financial information is expl
 See [frontend setup, verification and integration notes](docs/FRONTEND.md). Run `npm run typecheck`, `npm run lint`, `npm test` and `npm run build` before handoff.
 
 Phase 2 adds Products, Plans, Customers, Quotations, Subscriptions, Invoices and Payments. Admin and Staff navigation is functional; customers have read-only views of their own documents. All changes are local mock state and reset on reload. See [Phase 2 verification and API mapping](docs/PHASE_2.md).
+
+Phase 3 adds deterministic Revenue Simulation, Subscription Health and Smart Payment Recovery for Admin/Staff. These use typed mock adapters, a clearly labeled fixed sample portfolio, and local-only recovery actions—no emails or payments are sent. See [Phase 3 behavior and verification](docs/PHASE_3.md).
+
+Phase 4 prepares inactive, browser-safe API clients and improves loading/error/accessibility states. Mocks remain active. See the [integration checklist and confirmed contract gaps](docs/INTEGRATION_CHECKLIST.md) before enabling any real integration.

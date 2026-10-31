@@ -34,7 +34,7 @@ Forgot password sends no email. Its sample link resets only the built-in custome
 4. Resize to 375px, 768px and desktop widths. Open/close navigation, scroll tables, and use the profile sign-out action.
 5. Try invalid credentials; register a sample customer; verify registration does not sign in. Sign in without reloading the page.
 6. Request a sample reset, follow its link, test mismatched/weak passwords, reset successfully, and sign in with the changed customer password without reloading.
-7. Open a reset page without a token and with an invalid token; verify errors. Sign in as Staff and Customer; verify their shell-only pages.
+7. Open a reset page without a token and with an invalid token; verify errors. Sign in as Staff and Customer; verify their role-specific workspace and document navigation.
 8. Visit /admin while signed out and as a Customer; verify redirects. These checks demonstrate navigation only.
 
 ## Checks
@@ -59,4 +59,4 @@ Financial DTOs use integer minor units, explicit ISO currency and UTC timestamps
 
 Final integration must reconcile package.json/package-lock.json, tsconfig.json, next.config.ts, eslint.config.mjs, .gitignore, README and styling config. Preserve backend dependencies and Prisma generation hooks at that point; this frontend branch intentionally has none. Do not overwrite the backend manifest with the frontend manifest. Keep backend authentication and financial tests alongside tests/frontend.test.ts.
 
-The Stitch export remains unchanged. Phase 2 adds the core management pages and functional role-aware navigation; see [Phase 2 verification and API mapping](PHASE_2.md). Intelligence, recovery, reports and settings destinations remain disabled for later phases. The Admin analytics dashboard remains a separate fixed mock snapshot; local management changes do not recompute it.
+The Stitch export remains unchanged. Phase 2 adds the core management pages and functional role-aware navigation; see [Phase 2 verification and API mapping](PHASE_2.md). Phase 3 enables Admin/Staff intelligence and recovery; reports and settings remain disabled. See [Phase 3](PHASE_3.md) and [Phase 4 integration checklist](INTEGRATION_CHECKLIST.md). The Admin analytics dashboard remains a separate fixed mock snapshot; local management changes do not recompute it.

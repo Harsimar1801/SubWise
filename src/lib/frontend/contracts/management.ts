@@ -43,5 +43,5 @@ export interface ManagementAdapter {
  subscriptionAction(actor: CurrentUser, id: string, action: SubscriptionAction, input?: { endsAt: string }): Promise<void>;
  recordPayment(actor: CurrentUser, invoiceId: string, input: RecordPaymentInput): Promise<void>;
 }
-export const sections = ["products", "plans", "customers", "quotations", "subscriptions", "invoices", "payments"] as const;
+export const sections = ["products", "plans", "customers", "quotations", "subscriptions", "invoices", "payments", "revenue-simulator", "subscription-health", "payment-recovery"] as const;
 export type ManagementSection = typeof sections[number];

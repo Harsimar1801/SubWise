@@ -9,7 +9,7 @@ import { Badge, Button } from "../ui/primitives";
 import { Modal } from "../ui/modal";
 import { Sidebar } from "./sidebar";
 export function AppShell({role,children}:{role:Role;children:ReactNode}) {
- const [user,setUser]=useState<CurrentUser|null>(null), [mobile,setMobile]=useState(false), [error,setError]=useState(""); const router=useRouter(); const pathname=usePathname(); const section=pathname.split("/")[2]; const breadcrumb=section === "plans" ? "Subscription Plans" : section ? section.charAt(0).toUpperCase()+section.slice(1) : "Overview";
+ const [user,setUser]=useState<CurrentUser|null>(null), [mobile,setMobile]=useState(false), [error,setError]=useState(""); const router=useRouter(); const pathname=usePathname(); const section=pathname.split("/")[2]; const breadcrumb=section === "plans" ? "Subscription Plans" : section ? section.split("-").map(word => word.charAt(0).toUpperCase()+word.slice(1)).join(" ") : "Overview";
  useEffect(()=>{let active=true; authAdapter.currentUser().then(u=>{if(!active)return;if(!u)router.replace("/login");else if(u.role!==role)router.replace(rolePath(u.role));else setUser(u);}).catch(()=>setError("Demo storage is unavailable. Enable browser storage and reload."));return()=>{active=false;};},[role,router]);
  async function logout(){try{await authAdapter.logout();router.replace("/login");}catch{setError("Unable to clear the demo session. Try again.");}}
  if(!user)return <main className="grid min-h-screen place-items-center p-6" role="status">{error || "Opening your demo workspace…"}</main>;
