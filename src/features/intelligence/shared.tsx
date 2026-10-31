@@ -6,11 +6,11 @@ import { Badge, Button, Card, Input, Table, type Column } from "@/components/ui/
 import { Field, Select } from "@/components/ui/forms";
 export function useResource<T>(load: () => Promise<T>) {
  const [data, setData] = useState<T | null>(null), [error, setError] = useState(""), [version, setVersion] = useState(0);
- useEffect(() => { let active = true; load().then(value => { if (active) { setData(value); setError(""); } }).catch(err => { if (active) setError(err instanceof Error ? err.message : "Unable to load the sample data."); }); return () => { active = false; }; }, [load, version]);
+ useEffect(() => { let active = true; load().then(value => { if (active) { setData(value); setError(""); } }).catch(err => { if (active) setError(err instanceof Error ? err.message : "Unable to load data."); }); return () => { active = false; }; }, [load, version]);
  return { data, error, reload: () => setVersion(v => v + 1) };
 }
 export function ResourceState({ error, retry }: { error: string; retry: () => void }) { return error ? <Card><p role="alert">{error}</p><Button variant="secondary" className="mt-4" onClick={retry}>Retry</Button></Card> : <WorkspaceLoading/>; }
-export function IntelligenceNotice() { return <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-white p-3 text-xs text-muted"><Badge tone="blue">Mock intelligence portfolio</Badge><span>Fixed snapshot: 31 Oct 2026 · local actions reset on reload · no API connection</span></div>; }
+export function IntelligenceNotice() { return <div className="flex flex-wrap items-center gap-3 rounded-lg border border-line bg-white p-3 text-xs text-muted"><Badge tone="blue">Subscription intelligence</Badge><span>Live financial evidence · server-authorized actions</span></div>; }
 export function Metric({ label, value, note }: { label: string; value: ReactNode; note: string }) { return <Card><h2 className="text-[11px] font-semibold uppercase tracking-wider text-muted">{label}</h2><p className="my-3 break-words text-2xl font-semibold tracking-tight tabular-nums">{value}</p><p className="text-[11px] leading-5 text-muted">{note}</p></Card>; }
 export function Directory<T>({ rows, columns, rowKey, searchable, category, categories, label }: { rows: T[]; columns: Column<T>[]; rowKey: (row: T) => string; searchable: (row: T) => string; category?: (row: T) => string; categories?: string[]; label: string }) {
  const [search, setSearch] = useState(""), [filter, setFilter] = useState("");

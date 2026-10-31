@@ -21,6 +21,7 @@ export function createApiClients(transport: ApiTransport) {
  } satisfies AuthAdapter & { me: (signal?: AbortSignal) => Promise<{ user: CurrentUser }> };
  return {
   auth,
+  billing: { run: (idempotencyKey: string) => post("/api/billing/run", { idempotencyKey }) },
   catalog: {
    list: <R extends keyof CatalogRecords>(resource: R, query?: CatalogQuery, signal?: AbortSignal) => get<ApiList<CatalogRecords[R]>>(`/api/catalog/${resource}`, query, signal),
    detail: <R extends keyof CatalogRecords>(resource: R, id: string, signal?: AbortSignal) => get<ApiResult<CatalogRecords[R]>>(`/api/catalog/${resource}/${apiId(id)}`, undefined, signal),

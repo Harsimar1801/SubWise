@@ -11,7 +11,7 @@ test("API integration defaults to disabled and construction never makes requests
  await assert.rejects(clients.analytics.overview({ currency: "LKR" }), (e: unknown) => e instanceof ApiClientError && e.code === "INTEGRATION_DISABLED");
  await assert.rejects(clients.invoices.pdf("example")); assert.equal(calls, 0);
  const active = readFileSync(new URL("../src/lib/frontend/adapters/index.ts", import.meta.url), "utf8");
- assert.ok(!active.includes("api/")); assert.match(active, /mockAuthAdapter/); assert.match(active, /mockManagementAdapter/); assert.match(active, /mockIntelligenceAdapter/);
+ assert.match(active, /createLiveAdapters/); assert.ok(!active.includes(".mock"));
 });
 test("transport sends same-origin credentialed JSON and encodes queries without exposing secrets", async () => {
  const seen: { path: string; init: RequestInit }[] = [];
