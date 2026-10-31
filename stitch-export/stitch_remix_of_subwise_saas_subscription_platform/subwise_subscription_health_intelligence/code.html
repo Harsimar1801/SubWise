@@ -1,0 +1,720 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SubWise Enterprise Billing - Subscription Health</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#F5F5F5",
+            "sidebar-bg": "#FAFAFA",
+            "border-subtle": "#E6E6E6",
+            "text-main": "#111111",
+            "text-muted": "#777777",
+            "active-nav": "#D8EAF2",
+            "brand-dark": "#080808",
+            "risk-healthy": "#12B886",
+            "risk-healthy-bg": "#E8F8F3",
+            "risk-warning": "#E8A23A",
+            "risk-warning-bg": "#FDF6EA",
+            "risk-critical": "#D9534F",
+            "risk-critical-bg": "#FDF2F2"
+          },
+          "fontFamily": {
+            "sans": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #DCDCDC;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F5] text-[#111111] antialiased flex h-screen overflow-hidden font-sans text-[13px]">
+<!-- SideNavBar Anchor Component -->
+<aside class="h-screen w-64 flex flex-col justify-between shrink-0 bg-[#FAFAFA] border-r border-[#E6E6E6] sticky top-0 left-0 z-30 px-3.5 py-4">
+<!-- Brand / Workspace Header -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 px-2">
+<div class="w-8 h-8 rounded-lg bg-[#080808] flex items-center justify-center text-white shadow-xs">
+<span class="material-symbols-outlined text-[19px]" data-icon="autorenew">autorenew</span>
+</div>
+<div>
+<h1 class="text-[17px] font-bold text-[#111111] tracking-tight leading-none">SubWise</h1>
+<span class="text-[11px] text-[#777777] font-medium">Enterprise Billing</span>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<button class="w-full h-8 px-3 rounded-lg bg-[#080808] text-white hover:bg-black/85 transition-all duration-150 ease-in-out active:scale-[0.99] flex items-center justify-center gap-2 text-[13px] font-medium shadow-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+<span class="">New Subscription</span>
+</button>
+<!-- Nav Items Scroll Area -->
+<nav class="flex flex-col gap-0.5 overflow-y-auto max-h-[calc(100vh-270px)] custom-scrollbar pr-1">
+<!-- 1: Overview -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="dashboard">dashboard</span>
+<span class="text-[13px]">Overview</span>
+</a>
+<!-- 2: Products -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="inventory_2">inventory_2</span>
+<span class="text-[13px]">Products</span>
+</a>
+<!-- 3: Plans -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="layers">layers</span>
+<span class="text-[13px]">Plans</span>
+</a>
+<!-- 4: Customers -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="group">group</span>
+<span class="text-[13px]">Customers</span>
+</a>
+<!-- 5: Quotations -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="request_quote">request_quote</span>
+<span class="text-[13px]">Quotations</span>
+</a>
+<!-- 6: Subscriptions -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="autorenew">autorenew</span>
+<span class="text-[13px]">Subscriptions</span>
+</a>
+<!-- 7: Invoices -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="receipt_long">receipt_long</span>
+<span class="text-[13px]">Invoices</span>
+</a>
+<!-- 8: Payments -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="payments">payments</span>
+<span class="text-[13px]">Payments</span>
+</a>
+<!-- 9: Revenue Simulator -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="insights">insights</span>
+<span class="text-[13px]">Revenue Simulator</span>
+</a>
+<!-- 10: Subscription Health (ACTIVE) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#D8EAF2] text-[#111111] font-medium transition-all duration-150 ease-in-out active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[#111111] text-[18px]" data-icon="health_and_safety">health_and_safety</span>
+<span class="text-[13px] font-medium text-[#111111]">Subscription Health</span>
+</a>
+<!-- 11: Payment Recovery -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="restore_page">restore_page</span>
+<span class="text-[13px]">Payment Recovery</span>
+</a>
+<!-- 12: Reports -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="bar_chart">bar_chart</span>
+<span class="text-[13px]">Reports</span>
+</a>
+<!-- 13: Settings -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150 active:scale-[0.99]" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+<span class="text-[13px]">Settings</span>
+</a>
+</nav>
+</div>
+<!-- SideNavBar Footer -->
+<div class="border-t border-[#E6E6E6] pt-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+<span class="text-[13px]">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-black/5 transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="headset_mic">headset_mic</span>
+<span class="text-[13px]">Support</span>
+</a>
+<!-- Tenant Pill -->
+<div class="mt-2 p-2 rounded-lg bg-black/[0.03] border border-[#E6E6E6] flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-[#12B886]"></div>
+<span class="text-[11px] text-[#777777] font-medium">Production / ap-south-1</span>
+</div>
+<span class="text-[11px] font-mono text-[#777777]">v4.12</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar Anchor Component -->
+<header class="sticky top-0 z-20 flex justify-between items-center px-6 h-14 w-full bg-white border-b border-[#E6E6E6] shadow-[0_1px_2px_rgba(0,0,0,0.02)] shrink-0">
+<div class="flex items-center gap-4">
+<!-- Breadcrumb / Location -->
+<div class="flex items-center gap-2 text-[13px] text-[#777777]">
+<span class="text-[#777777]">Intelligence</span>
+<span class="text-[#CCCCCC]">/</span>
+<span class="text-[#111111] font-semibold">Subscription Health</span>
+</div>
+<div class="h-4 w-px bg-[#E6E6E6]"></div>
+<!-- Search Input Bar -->
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-[#777777] text-[16px]" data-icon="search">search</span>
+<input class="h-8 pl-8 pr-3 w-80 bg-[#F5F5F5] rounded-lg text-[13px] text-[#111111] placeholder:text-[#777777] border border-[#E6E6E6] focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111] transition-all" placeholder="Search subscriptions, customers, or invoices (Cmd+K)" type="text">
+</div>
+</div>
+<!-- Trailing Action Controls -->
+<div class="flex items-center gap-3">
+<!-- Secondary Action: Create -->
+<button class="h-8 px-3 rounded-lg border border-[#E6E6E6] bg-white text-[#111111] hover:bg-[#F5F5F5] text-[13px] font-medium flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+<span class="">Create</span>
+</button>
+<!-- Role Badge -->
+<div class="px-2.5 py-1 rounded-full bg-[#F5F5F5] text-[#111111] text-[11px] font-medium border border-[#E6E6E6]">
+          Role: Admin
+        </div>
+<!-- Icon Actions -->
+<button class="w-8 h-8 rounded-lg hover:bg-[#F5F5F5] flex items-center justify-center text-[#777777] hover:text-[#111111] transition-colors relative" title="Notifications">
+<span class="material-symbols-outlined text-[19px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-[#D9534F] rounded-full"></span>
+</button>
+<button class="w-8 h-8 rounded-lg hover:bg-[#F5F5F5] flex items-center justify-center text-[#777777] hover:text-[#111111] transition-colors" title="Help">
+<span class="material-symbols-outlined text-[19px]" data-icon="help_outline">help_outline</span>
+</button>
+<!-- Avatar -->
+<div class="flex items-center gap-2 pl-2 border-l border-[#E6E6E6]">
+<img alt="User Profile Avatar" class="w-7 h-7 rounded-full object-cover border border-[#E6E6E6]" data-alt="Close up professional headshot of a corporate financial analyst with glasses, warm studio key lighting, deep blue modern office backdrop in soft blur, sharp editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqlFb5m5TToAr_-fCfCJWyxuEOD8QZz9LY22OeMPdLJCQXIazM-aFqZJgQsX7KjJeecey49QTnpKxbWv2AU2vZ7Domjp6NPAyCPF1FiUqHlyIyubzJZidR--BYeg-bTb_VB8l8r777d_NjX1EIfZq4kKgVYZceFXVegx_p1gFQX3nYg1vHQ_8DTAT9TCyt5wPrI-SrA2D-riPziMATqjOEIiIXoRF-EQibZh2I">
+<span class="material-symbols-outlined text-[16px] text-[#777777]" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas Area -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-6 bg-[#F5F5F5] space-y-6">
+<!-- Page Title & Intelligence Summary Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-[22px] font-bold text-[#111111] tracking-tight">Subscription Health &amp; Churn Risk Intelligence</h2>
+<p class="text-[13px] text-[#777777] mt-0.5">Real-time AI health scoring based on payment velocity, product usage, invoice dispute history, and renewal likelihood.</p>
+</div>
+<div class="flex items-center gap-2">
+<!-- Live Indicator -->
+<div class="flex items-center gap-2 px-3 py-1.5 bg-white border border-[#E6E6E6] rounded-lg shadow-sm">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#12B886] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#12B886]"></span>
+</span>
+<span class="text-[11px] text-[#777777] font-mono">Model: RiskEngine-v3.8 (Live)</span>
+</div>
+<button class="h-8 px-3 rounded-lg bg-white border border-[#E6E6E6] hover:bg-[#FAFAFA] text-[#111111] text-[13px] font-medium flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-[#777777]" data-icon="tune">tune</span>
+<span class="">Scoring Weights</span>
+</button>
+<button class="h-8 px-3 rounded-lg bg-white border border-[#E6E6E6] hover:bg-[#FAFAFA] text-[#111111] text-[13px] font-medium flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-[#777777]" data-icon="download">download</span>
+<span class="">Export CSV</span>
+</button>
+</div>
+</div>
+<!-- Top KPI Metric Cards (4 Cards Bento Bar) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"><!-- Card 1: Average Health Score -->
+<div class="bg-white border border-[#E6E6E6] rounded-[13px] p-5 shadow-sm flex items-center justify-between">
+  <div>
+    <span class="text-[12px] font-semibold text-[#5e5e5e] block uppercase tracking-wide">Avg Health Score</span>
+    <div class="flex items-baseline gap-1.5 mt-1.5">
+      <span class="text-[28px] font-bold text-[#111111] tracking-tight leading-none">82.4</span>
+      <span class="text-[13px] font-medium text-[#777777]">/ 100</span>
+    </div>
+    <div class="flex items-center gap-1.5 mt-2.5 text-[#12B886]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+      <span class="text-[12px] font-semibold">+3.2 pts this quarter</span>
+    </div>
+  </div>
+  <div class="relative w-16 h-16 flex items-center justify-center shrink-0">
+    <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+      <path class="stroke-[#E6E6E6]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-width="3.5"></path>
+      <path class="stroke-[#111111]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke-dasharray="82.4, 100" stroke-linecap="round" stroke-width="3.5"></path>
+    </svg>
+    <span class="absolute text-[12px] font-bold text-[#111111]">82%</span>
+  </div>
+</div>
+
+<!-- Card 2: Healthy Subscriptions -->
+<div class="bg-white border border-[#E6E6E6] rounded-[13px] p-5 shadow-sm flex flex-col justify-between">
+  <div class="flex items-center justify-between">
+    <span class="text-[12px] font-semibold text-[#5e5e5e] uppercase tracking-wide">Healthy</span>
+    <span class="px-2.5 py-0.5 rounded-full bg-[#E8F8F3] text-[#12B886] text-[11px] font-semibold border border-[#12B886]/20">
+      Score 80–100
+    </span>
+  </div>
+  <div class="mt-3">
+    <span class="text-[28px] font-bold text-[#111111] tracking-tight leading-none">11,940</span>
+    <span class="text-[13px] text-[#777777] ml-1.5 font-medium">accounts</span>
+  </div>
+  <div class="flex items-center justify-between mt-3 pt-2.5 border-t border-[#E6E6E6]">
+    <span class="text-[12px] text-[#777777]">Share of portfolio</span>
+    <span class="text-[12px] font-bold text-[#12B886]">80.6%</span>
+  </div>
+</div>
+
+<!-- Card 3: Needs Attention -->
+<div class="bg-white border border-[#E6E6E6] rounded-[13px] p-5 shadow-sm flex flex-col justify-between">
+  <div class="flex items-center justify-between">
+    <span class="text-[12px] font-semibold text-[#5e5e5e] uppercase tracking-wide">Needs Attention</span>
+    <span class="px-2.5 py-0.5 rounded-full bg-[#FDF6EA] text-[#E8A23A] text-[11px] font-semibold border border-[#E8A23A]/20">
+      Score 50–79
+    </span>
+  </div>
+  <div class="mt-3">
+    <span class="text-[28px] font-bold text-[#111111] tracking-tight leading-none">2,410</span>
+    <span class="text-[13px] text-[#777777] ml-1.5 font-medium">accounts</span>
+  </div>
+  <div class="flex items-center justify-between mt-3 pt-2.5 border-t border-[#E6E6E6]">
+    <span class="text-[12px] text-[#777777]">Share of portfolio</span>
+    <span class="text-[12px] font-bold text-[#E8A23A]">16.2%</span>
+  </div>
+</div>
+
+<!-- Card 4: High-Risk Subscriptions -->
+<div class="bg-white border border-[#E6E6E6] rounded-[13px] p-5 shadow-sm flex flex-col justify-between relative overflow-hidden">
+  <div class="absolute right-0 top-0 w-24 h-24 bg-[#D9534F]/5 rounded-bl-full -z-0 pointer-events-none"></div>
+  <div class="flex items-center justify-between z-10">
+    <span class="text-[12px] font-semibold text-[#5e5e5e] uppercase tracking-wide">High Risk</span>
+    <span class="px-2.5 py-0.5 rounded-full bg-[#FDF2F2] text-[#D9534F] text-[11px] font-semibold border border-[#D9534F]/20 flex items-center gap-1">
+      <span class="material-symbols-outlined text-[13px]" data-icon="warning">warning</span>
+      Score 0–49
+    </span>
+  </div>
+  <div class="mt-3 z-10">
+    <span class="text-[28px] font-bold text-[#D9534F] tracking-tight leading-none">470</span>
+    <span class="text-[13px] text-[#777777] ml-1.5 font-medium">accounts</span>
+  </div>
+  <div class="flex items-center justify-between mt-3 pt-2.5 border-t border-[#E6E6E6] z-10">
+    <span class="text-[12px] text-[#777777]">Exposure ARR</span>
+    <span class="text-[12px] font-bold text-[#D9534F]">₹38.4L ARR</span>
+  </div>
+</div></div>
+<!-- Middle Section: Dual-Pane Split (65% Directory vs 35% Deep-Dive) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Pane: Customer Health Directory Table (65% -> 8 cols of 12) -->
+<div class="lg:col-span-8 bg-white border border-[#E6E6E6] rounded-[13px] shadow-sm flex flex-col">
+<!-- Filter & Search Toolbar -->
+<div class="p-4 border-b border-[#E6E6E6] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+<!-- Segment Filter Pills -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar"><button class="h-7 px-3 rounded-md bg-[#080808] text-white font-medium text-[12px] whitespace-nowrap shadow-xs">
+  All Accounts (14,820)
+</button>
+<button class="h-7 px-3 rounded-md bg-transparent hover:bg-[#F5F5F5] text-[#D9534F] font-medium text-[12px] whitespace-nowrap flex items-center gap-1 transition-colors">
+  <span class="w-1.5 h-1.5 rounded-full bg-[#D9534F]"></span>
+  High Risk (470)
+</button>
+<button class="h-7 px-3 rounded-md bg-transparent hover:bg-[#F5F5F5] text-[#E8A23A] font-medium text-[12px] whitespace-nowrap flex items-center gap-1 transition-colors">
+  <span class="w-1.5 h-1.5 rounded-full bg-[#E8A23A]"></span>
+  Needs Attention (2,410)
+</button>
+<button class="h-7 px-3 rounded-md bg-transparent hover:bg-[#F5F5F5] text-[#12B886] font-medium text-[12px] whitespace-nowrap flex items-center gap-1 transition-colors">
+  <span class="w-1.5 h-1.5 rounded-full bg-[#12B886]"></span>
+  Healthy (11,940)
+</button></div>
+<!-- Quick Table Tools -->
+<div class="flex items-center gap-2 shrink-0">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 text-[#777777] text-[14px]" data-icon="search">search</span>
+<input class="h-7 pl-6 pr-2 text-[12px] bg-[#F5F5F5] rounded border border-[#E6E6E6] focus:outline-none focus:border-[#111111] text-[#111111] w-40 placeholder:text-[#777777]" placeholder="Filter directory..." type="text">
+</div>
+<button class="w-7 h-7 rounded border border-[#E6E6E6] bg-white flex items-center justify-center text-[#777777] hover:text-[#111111] hover:bg-[#F5F5F5]" title="Filter columns">
+<span class="material-symbols-outlined text-[15px]" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Table Content -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse"><thead>
+<tr class="bg-[#FAFAFA] text-[#777777] text-[11px] font-medium border-b border-[#E6E6E6]">
+<th class="py-2.5 px-4 font-medium">Customer &amp; Company</th>
+<th class="py-2.5 px-3 font-medium">Plan</th>
+<th class="py-2.5 px-3 font-medium">Health Score</th>
+<th class="py-2.5 px-3 font-medium">Primary Risk Factor</th>
+<th class="py-2.5 px-4 font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#E6E6E6] text-[13px]">
+<tr class="bg-[#F5F5F5]/70 hover:bg-[#F5F5F5] transition-colors border-l-4 border-l-[#D9534F] cursor-pointer">
+  <td class="py-3.5 px-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#FDF2F2] text-[#D9534F] flex items-center justify-center font-bold text-[12px] border border-[#D9534F]/20 shrink-0">
+        NM
+      </div>
+      <div>
+        <div class="font-semibold text-[#111111] text-[13px] leading-snug">Nexus Media Pvt Ltd</div>
+        <div class="text-[11px] text-[#777777] font-mono mt-0.5">cust_nx_9921</div>
+      </div>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <span class="px-2 py-1 rounded-md bg-white text-[#5e5e5e] text-[11px] font-medium border border-[#E6E6E6] whitespace-nowrap shadow-xs">
+      Enterprise Scale
+    </span>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-2.5">
+      <div class="relative w-6 h-6 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
+          <circle class="text-[#E6E6E6]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-width="2.5"></circle>
+          <circle class="text-[#D9534F]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-dasharray="24, 56" stroke-linecap="round" stroke-width="2.5"></circle>
+        </svg>
+        <span class="absolute text-[9px] font-bold text-[#D9534F]">44</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide bg-[#FDF2F2] text-[#D9534F] border border-[#D9534F]/25">
+        HIGH RISK
+      </span>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-1.5 text-[#D9534F]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="credit_card_off">credit_card_off</span>
+      <span class="text-[12px] font-medium">2 Failed charges (₹1.45L)</span>
+    </div>
+  </td>
+  <td class="py-3.5 px-4 text-right">
+    <button class="px-3 py-1 rounded-md bg-[#080808] text-white text-[11px] font-medium shadow-xs hover:bg-black/85 transition-colors">
+      Selected
+    </button>
+  </td>
+</tr>
+<tr class="hover:bg-[#FAFAFA] transition-colors cursor-pointer">
+  <td class="py-3.5 px-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#F5F5F5] text-[#777777] flex items-center justify-center font-bold text-[12px] border border-[#E6E6E6] shrink-0">
+        CS
+      </div>
+      <div>
+        <div class="font-semibold text-[#111111] text-[13px] leading-snug">CloudSprint Systems</div>
+        <div class="text-[11px] text-[#777777] font-mono mt-0.5">cust_cs_8120</div>
+      </div>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <span class="px-2 py-1 rounded-md bg-white text-[#5e5e5e] text-[11px] font-medium border border-[#E6E6E6] whitespace-nowrap shadow-xs">
+      Growth Monthly
+    </span>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-2.5">
+      <div class="relative w-6 h-6 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
+          <circle class="text-[#E6E6E6]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-width="2.5"></circle>
+          <circle class="text-[#E8A23A]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-dasharray="32, 56" stroke-linecap="round" stroke-width="2.5"></circle>
+        </svg>
+        <span class="absolute text-[9px] font-bold text-[#E8A23A]">58</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide bg-[#FDF6EA] text-[#E8A23A] border border-[#E8A23A]/25">
+        ATTENTION
+      </span>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-1.5 text-[#E8A23A]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="trending_down">trending_down</span>
+      <span class="text-[12px] font-medium">Usage drop (-40%)</span>
+    </div>
+  </td>
+  <td class="py-3.5 px-4 text-right">
+    <button class="px-3 py-1 rounded-md bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#5e5e5e] hover:text-[#111111] text-[11px] font-medium transition-colors shadow-xs">
+      Inspect
+    </button>
+  </td>
+</tr>
+<tr class="hover:bg-[#FAFAFA] transition-colors cursor-pointer">
+  <td class="py-3.5 px-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#F5F5F5] text-[#777777] flex items-center justify-center font-bold text-[12px] border border-[#E6E6E6] shrink-0">
+        ZL
+      </div>
+      <div>
+        <div class="font-semibold text-[#111111] text-[13px] leading-snug">Zenith Logistics Corp</div>
+        <div class="text-[11px] text-[#777777] font-mono mt-0.5">cust_zl_3019</div>
+      </div>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <span class="px-2 py-1 rounded-md bg-white text-[#5e5e5e] text-[11px] font-medium border border-[#E6E6E6] whitespace-nowrap shadow-xs">
+      Enterprise Custom
+    </span>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-2.5">
+      <div class="relative w-6 h-6 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
+          <circle class="text-[#E6E6E6]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-width="2.5"></circle>
+          <circle class="text-[#D9534F]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-dasharray="21, 56" stroke-linecap="round" stroke-width="2.5"></circle>
+        </svg>
+        <span class="absolute text-[9px] font-bold text-[#D9534F]">38</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide bg-[#FDF2F2] text-[#D9534F] border border-[#D9534F]/25">
+        HIGH RISK
+      </span>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-1.5 text-[#D9534F]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="credit_card">credit_card</span>
+      <span class="text-[12px] font-medium">Expiring card in 3d</span>
+    </div>
+  </td>
+  <td class="py-3.5 px-4 text-right">
+    <button class="px-3 py-1 rounded-md bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#5e5e5e] hover:text-[#111111] text-[11px] font-medium transition-colors shadow-xs">
+      Inspect
+    </button>
+  </td>
+</tr>
+<tr class="hover:bg-[#FAFAFA] transition-colors cursor-pointer">
+  <td class="py-3.5 px-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#E8F8F3] text-[#12B886] flex items-center justify-center font-bold text-[12px] border border-[#12B886]/20 shrink-0">
+        AT
+      </div>
+      <div>
+        <div class="font-semibold text-[#111111] text-[13px] leading-snug">Aura Tech Labs</div>
+        <div class="text-[11px] text-[#777777] font-mono mt-0.5">cust_at_1109</div>
+      </div>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <span class="px-2 py-1 rounded-md bg-white text-[#5e5e5e] text-[11px] font-medium border border-[#E6E6E6] whitespace-nowrap shadow-xs">
+      Standard Annual
+    </span>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-2.5">
+      <div class="relative w-6 h-6 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
+          <circle class="text-[#E6E6E6]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-width="2.5"></circle>
+          <circle class="text-[#12B886]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-dasharray="52, 56" stroke-linecap="round" stroke-width="2.5"></circle>
+        </svg>
+        <span class="absolute text-[9px] font-bold text-[#12B886]">94</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide bg-[#E8F8F3] text-[#12B886] border border-[#12B886]/25">
+        HEALTHY
+      </span>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-1.5 text-[#12B886]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+      <span class="text-[12px] font-medium">Zero disputes</span>
+    </div>
+  </td>
+  <td class="py-3.5 px-4 text-right">
+    <button class="px-3 py-1 rounded-md bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#5e5e5e] hover:text-[#111111] text-[11px] font-medium transition-colors shadow-xs">
+      Inspect
+    </button>
+  </td>
+</tr>
+<tr class="hover:bg-[#FAFAFA] transition-colors cursor-pointer">
+  <td class="py-3.5 px-4">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#F5F5F5] text-[#777777] flex items-center justify-center font-bold text-[12px] border border-[#E6E6E6] shrink-0">
+        BF
+      </div>
+      <div>
+        <div class="font-semibold text-[#111111] text-[13px] leading-snug">Bharat Finverse Ltd</div>
+        <div class="text-[11px] text-[#777777] font-mono mt-0.5">cust_bf_7761</div>
+      </div>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <span class="px-2 py-1 rounded-md bg-white text-[#5e5e5e] text-[11px] font-medium border border-[#E6E6E6] whitespace-nowrap shadow-xs">
+      Enterprise Tier
+    </span>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-2.5">
+      <div class="relative w-6 h-6 flex items-center justify-center shrink-0">
+        <svg class="w-6 h-6 transform -rotate-90" viewBox="0 0 24 24">
+          <circle class="text-[#E6E6E6]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-width="2.5"></circle>
+          <circle class="text-[#E8A23A]" cx="12" cy="12" fill="none" r="9" stroke="currentColor" stroke-dasharray="38, 56" stroke-linecap="round" stroke-width="2.5"></circle>
+        </svg>
+        <span class="absolute text-[9px] font-bold text-[#E8A23A]">67</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wide bg-[#FDF6EA] text-[#E8A23A] border border-[#E8A23A]/25">
+        ATTENTION
+      </span>
+    </div>
+  </td>
+  <td class="py-3.5 px-3">
+    <div class="flex items-center gap-1.5 text-[#E8A23A]">
+      <span class="material-symbols-outlined text-[16px]" data-icon="support_agent">support_agent</span>
+      <span class="text-[12px] font-medium">3 Unresolved tickets</span>
+    </div>
+  </td>
+  <td class="py-3.5 px-4 text-right">
+    <button class="px-3 py-1 rounded-md bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#5e5e5e] hover:text-[#111111] text-[11px] font-medium transition-colors shadow-xs">
+      Inspect
+    </button>
+  </td>
+</tr>
+</tbody></table>
+</div>
+<!-- Table Footer Pagination Bar -->
+<div class="p-3 border-t border-[#E6E6E6] flex items-center justify-between text-[13px] bg-[#FAFAFA]">
+<span class="text-[11px] text-[#777777]">Showing 1–5 of 14,820 customer accounts</span>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded border border-[#E6E6E6] bg-white text-[#777777] text-[11px] disabled:opacity-50" disabled="">
+                Previous
+              </button>
+<button class="px-2.5 py-1 rounded bg-[#080808] text-white text-[11px] font-medium">
+                1
+              </button>
+<button class="px-2.5 py-1 rounded hover:bg-[#F5F5F5] text-[#777777] text-[11px]">
+                2
+              </button>
+<button class="px-2.5 py-1 rounded hover:bg-[#F5F5F5] text-[#777777] text-[11px]">
+                3
+              </button>
+<span class="px-1 text-[#777777] text-[11px]">...</span>
+<button class="px-2 py-1 rounded border border-[#E6E6E6] bg-white text-[#777777] text-[11px] hover:bg-[#F5F5F5]">
+                Next
+              </button>
+</div>
+</div>
+</div>
+<!-- Right Pane: Customer Health Deep-Dive Panel (35% -> 4 cols of 12) -->
+<div class="lg:col-span-4 bg-white border border-[#E6E6E6] rounded-[13px] shadow-sm flex flex-col p-5 space-y-5"><!-- Deep Dive Header & Score Badge -->
+<div class="flex items-start justify-between pb-3.5 border-b border-[#E6E6E6]">
+  <div>
+    <div class="flex items-center gap-2.5">
+      <h3 class="text-[18px] font-bold text-[#111111] tracking-tight">Nexus Media Pvt Ltd</h3>
+      <span class="px-2.5 py-0.5 rounded-full bg-[#FDF2F2] text-[#D9534F] text-[11px] font-bold border border-[#D9534F]/20">
+        44 / 100
+      </span>
+    </div>
+    <p class="text-[12px] text-[#5e5e5e] mt-1">Account ID: CUST-IND-9921 • Enterprise Scale (₹1.45L ARR)</p>
+  </div>
+  <span class="px-2 py-0.5 rounded bg-[#F5F5F5] text-[#777777] font-mono text-[10px] font-medium border border-[#E6E6E6]">96% Conf.</span>
+</div>
+
+<!-- Score Breakdown: 3 Core Factors -->
+<div class="space-y-3">
+  <div class="flex items-center justify-between">
+    <span class="text-[11px] font-bold text-[#111111] uppercase tracking-wide">Score Decomposition</span>
+    <span class="text-[11px] text-[#D9534F] font-semibold">High Churn Likelihood</span>
+  </div>
+  <div class="space-y-2.5">
+    <!-- Factor 1: Payment History -->
+    <div>
+      <div class="flex justify-between text-[12px] mb-1">
+        <span class="text-[#111111] font-medium">Payment History</span>
+        <span class="text-[#D9534F] font-bold font-mono">30 / 100</span>
+      </div>
+      <div class="h-2 w-full bg-[#E6E6E6] rounded-full overflow-hidden">
+        <div class="h-full bg-[#D9534F] rounded-full" style="width: 30%;"></div>
+      </div>
+    </div>
+    <!-- Factor 2: Engagement Velocity -->
+    <div>
+      <div class="flex justify-between text-[12px] mb-1">
+        <span class="text-[#111111] font-medium">Engagement Velocity</span>
+        <span class="text-[#D9534F] font-bold font-mono">45 / 100</span>
+      </div>
+      <div class="h-2 w-full bg-[#E6E6E6] rounded-full overflow-hidden">
+        <div class="h-full bg-[#D9534F] rounded-full" style="width: 45%;"></div>
+      </div>
+    </div>
+    <!-- Factor 3: Dispute Rate -->
+    <div>
+      <div class="flex justify-between text-[12px] mb-1">
+        <span class="text-[#111111] font-medium">Dispute Rate</span>
+        <span class="text-[#E8A23A] font-bold font-mono">52 / 100</span>
+      </div>
+      <div class="h-2 w-full bg-[#E6E6E6] rounded-full overflow-hidden">
+        <div class="h-full bg-[#E8A23A] rounded-full" style="width: 52%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Active Risk Tags -->
+<div class="p-3.5 bg-[#FDF2F2] border border-[#D9534F]/30 rounded-lg space-y-2">
+  <div class="flex items-center gap-1.5 text-[#D9534F]">
+    <span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+    <span class="text-[12px] font-bold tracking-tight">Detected Risk Signals</span>
+  </div>
+  <ul class="space-y-1.5 pl-0.5 text-[12px]">
+    <li class="flex items-start gap-2 text-[#444748]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#D9534F] mt-1.5 shrink-0"></span>
+      <span class="">2 consecutive card charge failures on primary card</span>
+    </li>
+    <li class="flex items-start gap-2 text-[#444748]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#D9534F] mt-1.5 shrink-0"></span>
+      <span class="">Invoice #INV-2024-889 overdue by 18 days (₹1,45,000)</span>
+    </li>
+    <li class="flex items-start gap-2 text-[#444748]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#D9534F] mt-1.5 shrink-0"></span>
+      <span class="">Weekly active users dropped by 42% in last 30 days</span>
+    </li>
+  </ul>
+</div>
+
+<!-- 1-Click Action Buttons -->
+<div class="space-y-2">
+  <span class="text-[11px] font-bold text-[#111111] uppercase tracking-wide block">Immediate Recovery Actions</span>
+  <div class="grid grid-cols-1 gap-2">
+    <button class="w-full h-9 px-3 rounded-lg bg-[#080808] text-white hover:bg-black/85 transition-all text-[12px] font-medium flex items-center justify-between shadow-xs">
+      <span class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[16px]" data-icon="forward_to_inbox">forward_to_inbox</span>
+        <span class="">Send Dunning Reminder</span>
+      </span>
+      <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded font-semibold">1-Click</span>
+    </button>
+    <button class="w-full h-9 px-3 rounded-lg bg-white hover:bg-[#F5F5F5] text-[#111111] border border-[#E6E6E6] transition-colors text-[12px] font-medium flex items-center justify-between shadow-xs">
+      <span class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[16px] text-[#5e5e5e]" data-icon="calendar_today">calendar_today</span>
+        <span class="">Schedule Check-in Call</span>
+      </span>
+      <span class="material-symbols-outlined text-[15px] text-[#777777]" data-icon="arrow_forward">arrow_forward</span>
+    </button>
+  </div>
+</div>
+
+<!-- Quick Payment Timeline -->
+<div class="pt-3 border-t border-[#E6E6E6] space-y-2">
+  <span class="text-[11px] font-bold text-[#111111] uppercase tracking-wide block">Recent Milestones</span>
+  <div class="relative pl-5 space-y-2.5 before:absolute before:left-2 before:top-1.5 before:bottom-1.5 before:w-0.5 before:bg-[#E6E6E6]">
+    <div class="relative flex flex-col">
+      <span class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-[#D9534F] ring-4 ring-[#FDF2F2]"></span>
+      <span class="text-[12px] font-medium text-[#D9534F]">Charge Failed (Insuff. Funds)</span>
+      <span class="text-[10px] text-[#777777] font-mono">Yesterday • Attempt 2</span>
+    </div>
+    <div class="relative flex flex-col">
+      <span class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-[#12B886] ring-4 ring-[#E8F8F3]"></span>
+      <span class="text-[12px] font-medium text-[#111111]">September Invoice Settled</span>
+      <span class="text-[10px] text-[#777777] font-mono">Sep 24, 2024 • ₹1,45,000</span>
+    </div>
+  </div>
+</div></div>
+</div>
+</main>
+</div>
+
+
+</body></html>

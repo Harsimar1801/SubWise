@@ -1,0 +1,536 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SubWise Enterprise Billing - Financial Operations Dashboard</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Inter Font -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            app: "#F5F5F5",
+            canvas: "#F5F5F5",
+            card: "#FFFFFF",
+            brand: "#111111",
+            subtle: "#777777",
+            line: "#E6E6E6",
+            "active-blue": "#D8EAF2",
+            "active-blue-dark": "#1F4E66",
+            "bar-blue": "#C4DFEC",
+            "bar-dark": "#111111",
+            "bar-muted": "#E5E5E5"
+          },
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#F5F5F5] text-[#111111] font-sans min-h-screen flex antialiased">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 flex flex-col justify-between shrink-0 bg-[#FAFAFA] text-[#111111] border-r border-[#E6E6E6] sticky top-0 left-0 z-30 px-3 py-4">
+<!-- Top Brand & Hierarchy -->
+<div class="flex flex-col gap-4">
+<!-- Brand Logo Header -->
+<div class="flex items-center gap-3 px-3 py-2">
+<div class="w-8 h-8 rounded-lg bg-[#111111] flex items-center justify-center text-white shadow-sm font-bold">
+<span class="material-symbols-outlined text-lg" data-icon="autorenew">autorenew</span>
+</div>
+<div>
+<h1 class="text-base font-bold text-[#111111] tracking-tight leading-none">SubWise</h1>
+<p class="text-[11px] text-[#777777] mt-0.5">Enterprise Billing</p>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<div class="px-1">
+<button class="w-full flex items-center justify-center gap-2 bg-[#080808] hover:bg-[#222222] text-white px-3 py-2 rounded-lg text-[13px] font-medium shadow-sm transition-all duration-150 active:scale-[0.99]">
+<span class="material-symbols-outlined text-base" data-icon="add">add</span>
+<span class="">New Subscription</span>
+</button>
+</div>
+<!-- Main Navigation Clusters -->
+<nav class="flex flex-col gap-0.5 overflow-y-auto max-h-[calc(100vh-280px)] pr-1">
+<!-- Active Tab: Overview -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#D8EAF2] text-[#111111] font-semibold transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg text-[#111111]" data-icon="dashboard">dashboard</span>
+<span class="text-[13px]">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+<span class="text-[13px]">Products</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="layers">layers</span>
+<span class="text-[13px]">Plans</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="group">group</span>
+<span class="text-[13px]">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="request_quote">request_quote</span>
+<span class="text-[13px]">Quotations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="autorenew">autorenew</span>
+<span class="text-[13px]">Subscriptions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="receipt_long">receipt_long</span>
+<span class="text-[13px]">Invoices</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+<span class="text-[13px]">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="insights">insights</span>
+<span class="text-[13px]">Revenue Simulator</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="health_and_safety">health_and_safety</span>
+<span class="text-[13px]">Subscription Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="restore_page">restore_page</span>
+<span class="text-[13px]">Payment Recovery</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="bar_chart">bar_chart</span>
+<span class="text-[13px]">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span class="text-[13px]">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Footer Support Links -->
+<div class="border-t border-[#E6E6E6] pt-3 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="menu_book">menu_book</span>
+<span class="text-[13px]">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F0F0F0] transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="headset_mic">headset_mic</span>
+<span class="text-[13px]">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0 overflow-y-auto bg-[#F5F5F5]">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-20 flex justify-between items-center px-6 h-14 w-full bg-[#FFFFFF] text-[#111111] border-b border-[#E6E6E6] shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+<!-- Search Bar & Breadcrumbs -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-[13px] text-[#777777]">
+<span class="">Home</span>
+<span class="material-symbols-outlined text-xs text-[#999999]" data-icon="chevron_right">chevron_right</span>
+<span class="text-[#111111] font-semibold">Overview</span>
+</div>
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-[#777777] text-sm" data-icon="search">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 h-8 bg-white border border-[#E6E6E6] rounded-lg text-[13px] placeholder:text-[#999999] text-[#111111] focus:outline-none focus:border-[#111111] focus:ring-1 focus:ring-[#111111]" placeholder="Search customers, subscriptions, invoices..." type="text">
+</div>
+</div>
+<!-- Trailing Actions & User Context -->
+<div class="flex items-center gap-3">
+<!-- Create Shortcut Button -->
+<button class="flex items-center gap-1.5 px-3 py-1 h-8 rounded-lg bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#111111] text-[13px] font-medium transition-colors duration-150">
+<span class="material-symbols-outlined text-sm text-[#111111]" data-icon="add_circle">add_circle</span>
+<span class="">Create</span>
+</button>
+<!-- Notification Bell -->
+<button class="relative p-1.5 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F5F5F5] transition-colors duration-150">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-[#D9534F] rounded-full ring-2 ring-white"></span>
+</button>
+<!-- Help Action -->
+<button class="p-1.5 rounded-lg text-[#777777] hover:text-[#111111] hover:bg-[#F5F5F5] transition-colors duration-150">
+<span class="material-symbols-outlined text-xl" data-icon="help_outline">help_outline</span>
+</button>
+<!-- Role Badge -->
+<span class="px-2.5 py-0.5 rounded-full bg-[#EAEAEA] text-[#111111] text-[11px] font-medium">Role: Admin</span>
+<div class="h-5 w-px bg-[#E6E6E6] mx-1"></div>
+<!-- User Profile Avatar & Detail -->
+<div class="flex items-center gap-2 pl-1 cursor-pointer">
+<img class="w-8 h-8 rounded-lg border border-[#E6E6E6] object-cover" data-alt="High-resolution square headshot of an Indian enterprise financial controller in professional business formal attire with modern office light-mode architectural backdrop. Sharp crisp focus, soft natural light, pristine slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtB3HXcT33UwX7FNcEZ-Y3PHN5Qu28TsKdCVDR6W0DC5Q2_6cAnK07xATSzPNrLQCthDfUGb6RgTVJcNBbrMEvRCwheDKjhAEkmhHc3olxDy5bcfJgeoP3ySEdONa9GpuGdo4uEyu9U6AhtXs_dwcCFkQllBr1mzbKv3nm3IGexsc3loTFiK5T6Ee4P90TWX3FxHDHP0BcwiDgR3vTEZUibWTgZ2oHdd6uRe8I">
+<div class="flex flex-col text-left">
+<span class="text-[13px] font-medium text-[#111111] leading-tight">Rohit Varma</span>
+<span class="text-[11px] text-[#777777]">Billing Ops</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 p-6 flex flex-col gap-6 max-w-[1440px] w-full mx-auto">
+<!-- Header Section -->
+<section class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-2xl font-bold text-[#111111] tracking-tight">Financial Overview</h2>
+<p class="text-[13px] text-[#777777] mt-0.5">Real-time consolidated telemetry for recurring revenue, receivables, and subscription churn.</p>
+</div>
+<!-- Filter Tabs & Primary Actions -->
+<div class="flex flex-wrap items-center gap-2.5">
+<!-- Time Filter Pill Group -->
+<div class="flex items-center p-0.5 bg-[#EAEAEA] border border-[#E6E6E6] rounded-lg text-[12px]">
+<button class="px-3 py-1 rounded-md bg-white text-[#111111] font-semibold shadow-xs">Last 30 Days</button>
+<button class="px-3 py-1 rounded-md text-[#777777] hover:text-[#111111] transition-colors">This Quarter</button>
+<button class="px-3 py-1 rounded-md text-[#777777] hover:text-[#111111] transition-colors">Year to Date</button>
+<button class="px-3 py-1 rounded-md text-[#777777] hover:text-[#111111] transition-colors">Custom</button>
+</div>
+<!-- Export Data Secondary Button -->
+<button class="flex items-center gap-1.5 h-8 px-3 rounded-lg bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#111111] text-[13px] font-medium transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm text-[#777777]" data-icon="file_download">file_download</span>
+<span class="">Export Data</span>
+</button>
+<!-- New Subscription Primary Button -->
+<button class="flex items-center gap-1.5 h-8 px-3.5 rounded-lg bg-[#080808] hover:bg-[#222222] text-white text-[13px] font-medium shadow-sm transition-all active:scale-[0.99]">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span class="">+ New Subscription</span>
+</button>
+</div>
+</section>
+<!-- Top KPI Cards Grid (6 Metric Cards) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div class="bg-white rounded-[12px] border border-[#E6E6E6] p-5 shadow-sm flex flex-col justify-between hover:border-[#CCCCCC] transition-all">
+    <div class="flex items-center justify-between">
+      <span class="text-[12px] text-[#555555] font-semibold">Active Subscriptions</span>
+      <span class="material-symbols-outlined text-base text-[#111111]">autorenew</span>
+    </div>
+    <div class="my-2.5">
+      <div class="text-2xl font-bold text-[#111111] tracking-tight">1,248</div>
+    </div>
+    <div class="flex items-center gap-1.5 text-[12px]">
+      <span class="px-2 py-0.5 rounded-full bg-[#E6F8F3] border border-[#12B886]/20 text-[#12B886] font-semibold flex items-center gap-0.5">
+        <span class="material-symbols-outlined text-xs">trending_up</span>+12.4%
+      </span>
+      <span class="text-[#777777]">this month</span>
+    </div>
+  </div>
+  <div class="bg-white rounded-[12px] border border-[#E6E6E6] p-5 shadow-sm flex flex-col justify-between hover:border-[#CCCCCC] transition-all">
+    <div class="flex items-center justify-between">
+      <span class="text-[12px] text-[#555555] font-semibold">Monthly Recurring Revenue</span>
+      <span class="material-symbols-outlined text-base text-[#111111]">payments</span>
+    </div>
+    <div class="my-2.5">
+      <div class="text-2xl font-bold text-[#111111] tracking-tight">$42,850</div>
+    </div>
+    <div class="flex items-center gap-1.5 text-[12px]">
+      <span class="px-2 py-0.5 rounded-full bg-[#E6F8F3] border border-[#12B886]/20 text-[#12B886] font-semibold flex items-center gap-0.5">
+        <span class="material-symbols-outlined text-xs">trending_up</span>+8.1%
+      </span>
+      <span class="text-[#777777]">vs last mo</span>
+    </div>
+  </div>
+  <div class="bg-white rounded-[12px] border border-[#E6E6E6] p-5 shadow-sm flex flex-col justify-between hover:border-[#CCCCCC] transition-all">
+    <div class="flex items-center justify-between">
+      <span class="text-[12px] text-[#555555] font-semibold">Total Net Revenue</span>
+      <span class="material-symbols-outlined text-base text-[#111111]">account_balance</span>
+    </div>
+    <div class="my-2.5">
+      <div class="text-2xl font-bold text-[#111111] tracking-tight">$384,120</div>
+    </div>
+    <div class="flex items-center gap-1.5 text-[12px]">
+      <span class="px-2 py-0.5 rounded-full bg-[#E6F8F3] border border-[#12B886]/20 text-[#12B886] font-semibold flex items-center gap-0.5">
+        <span class="material-symbols-outlined text-xs">trending_up</span>+18.5%
+      </span>
+      <span class="text-[#777777]">annual growth</span>
+    </div>
+  </div>
+  <div class="bg-white rounded-[12px] border border-[#E6E6E6] p-5 shadow-sm flex flex-col justify-between hover:border-[#CCCCCC] transition-all">
+    <div class="flex items-center justify-between">
+      <span class="text-[12px] text-[#555555] font-semibold">Overdue Invoices</span>
+      <span class="material-symbols-outlined text-base text-[#D9534F]">warning</span>
+    </div>
+    <div class="my-2.5">
+      <div class="text-2xl font-bold text-[#D9534F] tracking-tight">8 <span class="text-xs font-normal text-[#777777]">($4,250)</span></div>
+    </div>
+    <div class="flex items-center gap-1.5 text-[12px]">
+      <span class="px-2 py-0.5 rounded-full bg-[#FCEBEB] border border-[#D9534F]/20 text-[#D9534F] font-semibold">
+        Requires Action
+      </span>
+    </div>
+  </div>
+</section>
+<!-- Main Analytics Row (60% Revenue Trajectory / 40% Plan Distribution) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+  <div class="lg:col-span-8 bg-white border border-[#E6E6E6] rounded-[12px] p-6 shadow-sm flex flex-col justify-between">
+    <div class="flex items-center justify-between pb-3.5 border-b border-[#E6E6E6]">
+      <div>
+        <h3 class="text-base font-bold text-[#111111]">Monthly Revenue Trend</h3>
+        <p class="text-[13px] text-[#777777] mt-0.5">Monthly recurring billing collected over the past 6 months.</p>
+      </div>
+      <span class="px-2.5 py-1 bg-[#D8EAF2] text-[#1F4E66] text-[12px] font-semibold rounded-md">2024 MVP Target</span>
+    </div>
+    <div class="pt-6 pb-2">
+      <div class="h-44 w-full flex items-end justify-between gap-4 px-4 border-b border-[#E6E6E6]">
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] text-[#777777] opacity-0 group-hover:opacity-100 transition-opacity font-medium">$24k</span>
+          <div class="w-full bg-[#E0E0E0] group-hover:bg-[#111111] rounded-t-xs h-20 transition-colors"></div>
+          <span class="text-[12px] text-[#777777] font-medium pt-1">Jun</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] text-[#777777] opacity-0 group-hover:opacity-100 transition-opacity font-medium">$28k</span>
+          <div class="w-full bg-[#E0E0E0] group-hover:bg-[#111111] rounded-t-xs h-24 transition-colors"></div>
+          <span class="text-[12px] text-[#777777] font-medium pt-1">Jul</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] text-[#777777] opacity-0 group-hover:opacity-100 transition-opacity font-medium">$31k</span>
+          <div class="w-full bg-[#E0E0E0] group-hover:bg-[#111111] rounded-t-xs h-28 transition-colors"></div>
+          <span class="text-[12px] text-[#777777] font-medium pt-1">Aug</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] text-[#777777] opacity-0 group-hover:opacity-100 transition-opacity font-medium">$35k</span>
+          <div class="w-full bg-[#D8EAF2] group-hover:bg-[#A8CDE2] rounded-t-xs h-32 transition-colors"></div>
+          <span class="text-[12px] text-[#777777] font-medium pt-1">Sep</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] text-[#777777] opacity-0 group-hover:opacity-100 transition-opacity font-medium">$39k</span>
+          <div class="w-full bg-[#D8EAF2] group-hover:bg-[#A8CDE2] rounded-t-xs h-36 transition-colors"></div>
+          <span class="text-[12px] text-[#777777] font-medium pt-1">Oct</span>
+        </div>
+        <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
+          <span class="text-[11px] font-bold text-[#111111]">$42.8k</span>
+          <div class="w-full bg-[#111111] rounded-t-xs h-40"></div>
+          <span class="text-[12px] font-bold text-[#111111] pt-1">Nov</span>
+        </div>
+      </div>
+    </div>
+    <div class="pt-3 flex items-center justify-between text-[12px] text-[#777777]">
+      <span class="">Consistent +11.2% MoM pacing</span>
+      <span class="font-medium text-[#111111]">Current Month: <strong class="font-bold">$42,850</strong></span>
+    </div>
+  </div>
+  <div class="lg:col-span-4 bg-white border border-[#E6E6E6] rounded-[12px] p-6 shadow-sm flex flex-col justify-between">
+    <div>
+      <div class="flex items-center justify-between pb-3.5 border-b border-[#E6E6E6]">
+        <div>
+          <h3 class="text-base font-bold text-[#111111]">Plan Breakdown</h3>
+          <p class="text-[13px] text-[#777777] mt-0.5">Active subscriptions by tier</p>
+        </div>
+        <span class="material-symbols-outlined text-[#777777] text-lg">pie_chart</span>
+      </div>
+      <div class="mt-4">
+        <div class="h-2.5 w-full rounded-full bg-[#F0F0F0] flex overflow-hidden">
+          <div class="bg-[#111111] h-full" style="width: 55%;"></div>
+          <div class="bg-[#555555] h-full" style="width: 30%;"></div>
+          <div class="bg-[#A8CDE2] h-full" style="width: 15%;"></div>
+        </div>
+      </div>
+      <div class="mt-4 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#111111]"></span>
+            <span class="text-[13px] font-medium text-[#111111]">Enterprise ($499/mo)</span>
+          </div>
+          <span class="text-[13px] font-bold text-[#111111]">55%</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#555555]"></span>
+            <span class="text-[13px] font-medium text-[#111111]">Growth ($149/mo)</span>
+          </div>
+          <span class="text-[13px] font-bold text-[#111111]">30%</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#A8CDE2]"></span>
+            <span class="text-[13px] font-medium text-[#111111]">Starter ($49/mo)</span>
+          </div>
+          <span class="text-[13px] font-bold text-[#111111]">15%</span>
+        </div>
+      </div>
+    </div>
+    <div class="pt-3 mt-3 border-t border-[#E6E6E6] text-right text-[12px] text-[#777777]">
+      1,248 Paying Customers
+    </div>
+  </div>
+</section>
+<!-- Secondary Row: Watchlist & Renewals -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+  <div class="lg:col-span-6 bg-white border border-[#E6E6E6] rounded-[12px] p-6 shadow-sm">
+    <div class="flex items-center justify-between border-b border-[#E6E6E6] pb-3 mb-4">
+      <div>
+        <h3 class="text-base font-bold text-[#111111]">At-Risk Subscriptions</h3>
+        <p class="text-[13px] text-[#777777] mt-0.5">Customers with failed charges or overdue balances</p>
+      </div>
+      <span class="px-2 py-0.5 rounded-full bg-[#FCEBEB] border border-[#D9534F]/20 text-[#D9534F] text-[11px] font-bold">3 Pending</span>
+    </div>
+    <div class="flex flex-col gap-2.5">
+      <div class="flex items-center justify-between p-3 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+        <div>
+          <div class="text-[13px] font-semibold text-[#111111]">TechCorp Labs</div>
+          <div class="text-[12px] text-[#D9534F] font-medium">Overdue $2,450 (7 days)</div>
+        </div>
+        <button class="px-3 py-1.5 bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#111111] text-[12px] rounded-md font-semibold flex items-center gap-1 shadow-2xs transition-colors">
+          <span class="material-symbols-outlined text-sm">mail</span>
+          <span class="">Send Reminder</span>
+        </button>
+      </div>
+      <div class="flex items-center justify-between p-3 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+        <div>
+          <div class="text-[13px] font-semibold text-[#111111]">Zenith Media</div>
+          <div class="text-[12px] text-[#D9534F] font-medium">Failed Card $1,150 (3 days)</div>
+        </div>
+        <button class="px-3 py-1.5 bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#111111] text-[12px] rounded-md font-semibold flex items-center gap-1 shadow-2xs transition-colors">
+          <span class="material-symbols-outlined text-sm">autorenew</span>
+          <span class="">Retry Charge</span>
+        </button>
+      </div>
+      <div class="flex items-center justify-between p-3 rounded-lg bg-[#FAFAFA] border border-[#E6E6E6]">
+        <div>
+          <div class="text-[13px] font-semibold text-[#111111]">CloudMatrix Inc</div>
+          <div class="text-[12px] text-[#E8A23A] font-medium">Expiring Card $650 (Tomorrow)</div>
+        </div>
+        <button class="px-3 py-1.5 bg-white border border-[#E6E6E6] hover:bg-[#F5F5F5] text-[#111111] text-[12px] rounded-md font-semibold flex items-center gap-1 shadow-2xs transition-colors">
+          <span class="material-symbols-outlined text-sm">mail</span>
+          <span class="">Notify User</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="lg:col-span-6 bg-white border border-[#E6E6E6] rounded-[12px] p-6 shadow-sm">
+    <div class="flex items-center justify-between border-b border-[#E6E6E6] pb-3 mb-4">
+      <div>
+        <h3 class="text-base font-bold text-[#111111]">Upcoming Renewals</h3>
+        <p class="text-[13px] text-[#777777] mt-0.5">Next renewals scheduled within 48 hours</p>
+      </div>
+      <span class="text-[12px] text-[#777777] font-medium">Total: $7,900</span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b border-[#E6E6E6] text-[12px] text-[#555555]">
+            <th class="pb-2 font-semibold">Customer</th>
+            <th class="pb-2 font-semibold">Plan</th>
+            <th class="pb-2 font-semibold text-right">Amount</th>
+            <th class="pb-2 font-semibold text-right">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-[#E6E6E6] text-[13px]">
+          <tr>
+            <td class="py-2.5 font-semibold text-[#111111]">Acrobatics Corp</td>
+            <td class="py-2.5 text-[#555555]">Enterprise</td>
+            <td class="py-2.5 text-right font-bold text-[#111111]">$4,800</td>
+            <td class="py-2.5 text-right">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#D8EAF2] text-[#1F4E66] font-semibold">Auto-Pay</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2.5 font-semibold text-[#111111]">RazorTech Hub</td>
+            <td class="py-2.5 text-[#555555]">Growth</td>
+            <td class="py-2.5 text-right font-bold text-[#111111]">$2,150</td>
+            <td class="py-2.5 text-right">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#D8EAF2] text-[#1F4E66] font-semibold">Auto-Pay</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2.5 font-semibold text-[#111111]">FinStack Digital</td>
+            <td class="py-2.5 text-[#555555]">Starter</td>
+            <td class="py-2.5 text-right font-bold text-[#111111]">$950</td>
+            <td class="py-2.5 text-right">
+              <button class="px-2 py-0.5 bg-white border border-[#E6E6E6] text-[11px] font-semibold rounded hover:bg-[#F5F5F5]">Manual Charge</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- Bottom Data Table: Recent Financial Transactions & Billing Events -->
+<section class="bg-white border border-[#E6E6E6] rounded-[12px] p-5 shadow-sm">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E6E6E6] pb-3 mb-3">
+    <div>
+      <h3 class="text-base font-bold text-[#111111]">Recent Transactions</h3>
+      <p class="text-[13px] text-[#777777] mt-0.5">Latest billing activities and live payment events.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-[12px] text-[#777777]">Filter:</span>
+      <div class="flex items-center bg-[#F5F5F5] border border-[#E6E6E6] p-0.5 rounded-lg text-[12px]">
+        <button class="px-2.5 py-1 bg-white text-[#111111] font-semibold rounded shadow-xs">All</button>
+        <button class="px-2.5 py-1 text-[#555555] hover:text-[#111111] rounded">Paid</button>
+        <button class="px-2.5 py-1 text-[#555555] hover:text-[#111111] rounded">Pending</button>
+      </div>
+    </div>
+  </div>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left">
+      <thead>
+        <tr class="h-9 bg-[#FAFAFA] border-b border-[#E6E6E6] text-[12px] text-[#555555] uppercase tracking-wider">
+          <th class="px-4 font-semibold">Invoice</th>
+          <th class="px-4 font-semibold">Customer</th>
+          <th class="px-4 font-semibold">Plan</th>
+          <th class="px-4 font-semibold text-right">Amount</th>
+          <th class="px-4 font-semibold text-center">Status</th>
+          <th class="px-4 font-semibold text-right">Action</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-[#E6E6E6] text-[13px]">
+        <tr class="hover:bg-[#FAFAFA] transition-colors">
+          <td class="px-4 py-3 font-mono font-medium text-[#111111]">#INV-841</td>
+          <td class="px-4 py-3 font-semibold text-[#111111]">Acme Enterprises</td>
+          <td class="px-4 py-3 text-[#555555]">Enterprise</td>
+          <td class="px-4 py-3 text-right font-bold text-[#111111]">$4,800</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#E6F8F3] border border-[#12B886]/20 text-[#12B886] font-semibold">Paid</span>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <button class="text-[12px] text-[#777777] hover:text-[#111111] font-medium">View</button>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#FAFAFA] transition-colors">
+          <td class="px-4 py-3 font-mono font-medium text-[#111111]">#INV-840</td>
+          <td class="px-4 py-3 font-semibold text-[#111111]">TechCorp Labs</td>
+          <td class="px-4 py-3 text-[#555555]">Growth</td>
+          <td class="px-4 py-3 text-right font-bold text-[#111111]">$2,450</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#FCEBEB] border border-[#D9534F]/20 text-[#D9534F] font-semibold">Overdue</span>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <button class="text-[12px] text-[#D9534F] font-semibold hover:underline">Collect</button>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#FAFAFA] transition-colors">
+          <td class="px-4 py-3 font-mono font-medium text-[#111111]">#INV-839</td>
+          <td class="px-4 py-3 font-semibold text-[#111111]">QuickHeal Inc</td>
+          <td class="px-4 py-3 text-[#555555]">Starter</td>
+          <td class="px-4 py-3 text-right font-bold text-[#111111]">$490</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#E6F8F3] border border-[#12B886]/20 text-[#12B886] font-semibold">Paid</span>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <button class="text-[12px] text-[#777777] hover:text-[#111111] font-medium">View</button>
+          </td>
+        </tr>
+        <tr class="hover:bg-[#FAFAFA] transition-colors">
+          <td class="px-4 py-3 font-mono font-medium text-[#111111]">#INV-838</td>
+          <td class="px-4 py-3 font-semibold text-[#111111]">FinStack Digital</td>
+          <td class="px-4 py-3 text-[#555555]">Growth</td>
+          <td class="px-4 py-3 text-right font-bold text-[#111111]">$1,250</td>
+          <td class="px-4 py-3 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[#FFF3DC] border border-[#E8A23A]/20 text-[#E8A23A] font-semibold">Pending</span>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <button class="text-[12px] text-[#111111] font-semibold hover:underline">Record Payment</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</main>
+</div>
+
+
+</body></html>

@@ -1,0 +1,14 @@
+"use client";
+import { useId, useState, type ReactNode, type SelectHTMLAttributes } from "react";
+import { Modal } from "./modal";
+import { Button } from "./primitives";
+export function Field({ label, hint, children }: { label: string; hint?: string; children: ReactNode }) { return <label className="block min-w-0 space-y-2"><span className="block text-xs font-medium">{label}</span>{children}{hint && <span className="block text-[11px] leading-5 text-muted">{hint}</span>}</label>; }
+export function Select({ className = "", children, ...props }: SelectHTMLAttributes<HTMLSelectElement>) { return <select className={`h-10 w-full min-w-0 rounded-lg border border-line bg-white px-3 text-sm disabled:bg-canvas ${className}`} {...props}>{children}</select>; }
+export function Checkbox({ name, label, defaultChecked }: { name: string; label: string; defaultChecked?: boolean }) { return <label className="flex items-center gap-2 text-xs"><input type="checkbox" name={name} defaultChecked={defaultChecked} className="h-4 w-4 accent-black"/>{label}</label>; }
+export function FormError({ message }: { message: string }) { return message ? <p role="alert" className="rounded-lg border border-[#f0cdcc] bg-[#fdf2f2] p-3 text-xs leading-5 text-[#b43532]">{message}</p> : null; }
+export function FormDialog({ title, children, onClose, onSubmit, submitLabel = "Save changes" }: { title: string; children: ReactNode; onClose: () => void; onSubmit: (data: FormData) => Promise<void>; submitLabel?: string }) {
+ const [busy, setBusy] = useState(false), [error, setError] = useState(""); const helpId = useId();
+ return <Modal title={title} onClose={() => { if (!busy) onClose(); }}><form aria-busy={busy} aria-describedby={helpId} className="space-y-5" onSubmit={async e => { e.preventDefault(); const data = new FormData(e.currentTarget); setBusy(true); setError(""); try { await onSubmit(data); onClose(); } catch (err) { setError(err instanceof Error ? err.message : "Unable to save changes. Try again."); } finally { setBusy(false); } }}><p id={helpId} className="rounded-lg bg-canvas p-3 text-xs leading-5 text-muted">Changes are saved to SubWise. Review the details before confirming.</p><fieldset disabled={busy} className="min-w-0 space-y-5">{children}</fieldset><FormError message={error}/><div className="flex flex-wrap justify-end gap-2 border-t border-line pt-4"><Button variant="secondary" disabled={busy} onClick={onClose}>Cancel</Button><Button type="submit" disabled={busy}>{busy ? "Saving…" : submitLabel}</Button></div></form></Modal>;
+}
+export const formText = (data: FormData, key: string) => String(data.get(key) ?? "").trim();
+export const formNumber = (data: FormData, key: string) => { const raw = formText(data, key); if (!raw) throw new Error(`${key} is required.`); return Number(raw); };
