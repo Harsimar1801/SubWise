@@ -192,6 +192,7 @@ model QuotationTemplate {
 }
 
 model Quotation {
+  paymentTermsDays   Int                @default(0)
   id                 String             @id @default(cuid())
   number             String             @unique
   customerId         String
@@ -248,27 +249,30 @@ model QuotationItem {
 }
 
 model Subscription {
-  id                 String             @id @default(cuid())
-  number             String             @unique
+  paymentTermsDays   Int                    @default(0)
+  confirmedAt        DateTime?              @db.Timestamptz(3)
+  activities         SubscriptionActivity[]
+  id                 String                 @id @default(cuid())
+  number             String                 @unique
   customerId         String
-  quotationId        String?            @unique
-  status             SubscriptionStatus @default(DRAFT)
-  currency           String             @default("LKR") @db.VarChar(3)
-  interval           BillingInterval    @default(MONTH)
-  intervalCount      Int                @default(1)
-  startsAt           DateTime           @db.Timestamptz(3)
-  trialEndsAt        DateTime?          @db.Timestamptz(3)
-  currentPeriodStart DateTime?          @db.Timestamptz(3)
-  currentPeriodEnd   DateTime?          @db.Timestamptz(3)
-  nextBillingAt      DateTime?          @db.Timestamptz(3)
-  endsAt             DateTime?          @db.Timestamptz(3)
-  pausedAt           DateTime?          @db.Timestamptz(3)
-  canceledAt         DateTime?          @db.Timestamptz(3)
-  cancelAtPeriodEnd  Boolean            @default(false)
-  createdAt          DateTime           @default(now()) @db.Timestamptz(3)
-  updatedAt          DateTime           @updatedAt @db.Timestamptz(3)
-  customer           Customer           @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  quotation          Quotation?         @relation(fields: [quotationId], references: [id], onDelete: Restrict)
+  quotationId        String?                @unique
+  status             SubscriptionStatus     @default(DRAFT)
+  currency           String                 @default("LKR") @db.VarChar(3)
+  interval           BillingInterval        @default(MONTH)
+  intervalCount      Int                    @default(1)
+  startsAt           DateTime               @db.Timestamptz(3)
+  trialEndsAt        DateTime?              @db.Timestamptz(3)
+  currentPeriodStart DateTime?              @db.Timestamptz(3)
+  currentPeriodEnd   DateTime?              @db.Timestamptz(3)
+  nextBillingAt      DateTime?              @db.Timestamptz(3)
+  endsAt             DateTime?              @db.Timestamptz(3)
+  pausedAt           DateTime?              @db.Timestamptz(3)
+  canceledAt         DateTime?              @db.Timestamptz(3)
+  cancelAtPeriodEnd  Boolean                @default(false)
+  createdAt          DateTime               @default(now()) @db.Timestamptz(3)
+  updatedAt          DateTime               @updatedAt @db.Timestamptz(3)
+  customer           Customer               @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  quotation          Quotation?             @relation(fields: [quotationId], references: [id], onDelete: Restrict)
   items              SubscriptionItem[]
   invoices           Invoice[]
   recoveryEvents     RecoveryEvent[]
@@ -278,6 +282,11 @@ model Subscription {
 }
 
 model SubscriptionItem {
+  autoCloseAtExpiry   Boolean          @default(false)
+  allowPause          Boolean          @default(false)
+  allowResume         Boolean          @default(false)
+  allowRenew          Boolean          @default(true)
+  allowEarlyClosure   Boolean          @default(false)
   id                  String           @id @default(cuid())
   subscriptionId      String
   planId              String
@@ -469,4 +478,17 @@ model RecoveryEvent {
   @@unique([invoiceId, type, attemptNumber])
   @@index([status, scheduledFor])
   @@index([subscriptionId])
+}
+
+model SubscriptionActivity {
+  id             String              @id @default(cuid())
+  subscriptionId String
+  actorId        String?
+  action         String
+  fromStatus     SubscriptionStatus?
+  toStatus       SubscriptionStatus
+  createdAt      DateTime            @default(now()) @db.Timestamptz(3)
+  subscription   Subscription        @relation(fields: [subscriptionId], references: [id], onDelete: Restrict)
+
+  @@index([subscriptionId, createdAt])
 }

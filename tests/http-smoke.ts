@@ -18,6 +18,9 @@ async function main() {
     const cases: [string, unknown, number][] = [
       ["/api/health", undefined, 200], ["/api/auth/me", undefined, 401],
       ["/api/customers/unknown/profile", undefined, 401],
+      ["/api/customers", undefined, 401], ["/api/quotation-templates", undefined, 401],
+      ["/api/quotations", undefined, 401], ["/api/subscriptions", undefined, 401],
+      ["/api/quotations/unknown/convert", {}, 401],
       ["/api/admin/staff", {}, 401], ["/api/auth/sign-up/email", { role: "ADMIN" }, 400],
     ];
     if (!process.env.SMTP_URL || !process.env.SMTP_FROM) cases.push(["/api/auth/request-password-reset", { email: "not-a-user@example.com" }, 503]);
